@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
       {!isLocationPath && <NaveBar/>}
-      <div>
+      <div className='min-h-[70vh]'>
         <Routes>
           <Route path='/' element={<Home/>}/>
         </Routes>
