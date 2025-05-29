@@ -1,6 +1,7 @@
 import React from 'react'
 import NaveBar from './components/NaveBar'
-import { useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import Home from './pages/Home'
 
 const App = () => {
 
@@ -9,7 +10,11 @@ const App = () => {
   return (
     <div>
       {!isLocationPath && <NaveBar/>}
-      
+      <div>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+        </Routes>
+      </div>
     </div>
   )
 }
