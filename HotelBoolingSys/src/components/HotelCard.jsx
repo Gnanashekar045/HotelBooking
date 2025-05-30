@@ -16,6 +16,11 @@ const HotelCard = ({room, index}) => {
             </div>
             <div>
                 <img src={assets.locationIcon} alt="location-icon" /> 
+                <span><span></span>{room.hotel.address}</span>
+            </div>
+            <div>
+                <p>${room.pricePerNight} /night</p>
+                <button></button>
             </div>
         </div>
     </div>
