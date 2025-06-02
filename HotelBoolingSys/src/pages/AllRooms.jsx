@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { assets, facilityIcons, roomsDummyData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import StarRating from "../components/StarRating";
 import Title from "../components/Title";
 
+const CheckBox = ({label, selected = false, onChange = () => {}}) => {
+    return (
+        <label className="flex gap-3 items-center cursor-pointer mt-2 text-sm" htmlFor="">
+            <input type="checkbox" checked={selected} onChange={(e)=>onChange(e.target.checked, label)} />
+            <span className="font-light select-none">{label}</span>
+        </label>
+    )
+}
+
+const RadioButton = ({label, selected = false, onChange = () => {}}) => {
+    return (
+        <label className="flex gap-3 items-center cursor-pointer mt-2 text-sm" htmlFor="">
+            <input type="radio" name="sortOption" checked={selected} onChange={()=>onChange(label)} />
+            <span className="font-light select-none">{label}</span>
+        </label>
+    )
+}
+
 const AllRooms = () => {
   const navigate = useNavigate();
+  const [openFilter, setOpenFilter] = useState(false)
+  const roomType = [
+    "Simgle Bed",
+    "Double Bed",
+    "Luxury Room",
+    "Family Suite",
+  ];
 
+  const priceRanges = [
+    "0 to 500",
+    "500 to 100",
+    "1000 to 2000",
+    "2000 to 3000",
+  ];
+
+  const sortOptions = [
+    "Price Low to High",
+    "Price High to Low",
+    "Newest First",
+  ]
   return (
     <div className="flex flex-col-reverse lg:flex-row items-start justify-between pt-28 md:pt-36 px-4 md:px-16 lg:px-24 gap-10">
       {/* Left Section: Room List */}
@@ -70,8 +107,34 @@ const AllRooms = () => {
       </div>
 
       {/* Right Section (optional for filters or sidebar) */}
-      <div className="w-full lg:w-1/3">
-        <Title title={"Gnanasher"} subTitle={"i am checking the component"}/>
+      <div className="bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16">
+        <div className={`flex items-center justify-between px-5 py-2.5 min-lg:border-b border-gray-300 ${openFilter && "border-b"}`}>
+            <p className="text-base font-medium text-gray-800">FILTER</p>
+            <div className="text-xs cursor-pointer">
+                <span onClick={()=> setOpenFilter(!openFilter)} className="lg:hidden">{openFilter ? 'HIDE' : 'SHOW'}</span>
+                <span className="hidden lg:block">CLEAR</span>
+            </div>
+        </div>
+        <div className={`${openFilter ? 'h-auto' : 'h-0 lg:h-auto'} overflow-hidden transition-all duration-700`}>
+            <div className="px-5 pt-5">
+                <p className="font-medium text-gray-800 p-2">Populer Filter</p>
+                {roomType.map((room, index)=>(
+                    <CheckBox key={index} label={room}/>
+                ))}
+            </div>
+            <div className="px-5 pt-5">
+                <p className="font-medium text-gray-800 p-2">Price Range</p>
+                {priceRanges.map((range, index)=>(
+                    <CheckBox key={index} label={`$ ${range}`}/>
+                ))}
+            </div>
+            <div className="px-5 pt-5 pb-7">
+                <p className="font-medium text-gray-800 p-2">Sort By</p>
+                {sortOptions.map((option, index)=>(
+                    <RadioButton key={index} label={option}/>
+                ))}
+            </div>
+        </div>
       </div>
     </div>
   );
