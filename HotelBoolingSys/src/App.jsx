@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import AllRooms from './pages/AllRooms'
 import RoomDetails from './pages/RoomDetails'
 import MyBooking from './pages/MyBooking'
+import HotelReg from './components/HotelReg'
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
   return (
     <div>
       {!isLocationPath && <NaveBar/>}
+      {false && <HotelReg/>}
       <div className='min-h-[70vh]'>
         <Routes>
           <Route path='/' element={<Home/>}/>
